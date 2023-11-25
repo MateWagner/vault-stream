@@ -1,29 +1,22 @@
 package com.codecool.vaultstream.utils;
 
 
-import java.util.List;
-import java.io.*;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 
-public class FileReader {
-    private final List<String> content;
-    public FileReader(String filePath) {
-        this.content = readFileInList(filePath);
-    }
-
-    private static List<String> readFileInList(String filePath){
-        List<String> content;
+public class FileReader implements IFileReader {
+    public List<String> readFileLinesInList(String filePath) {
+        List<String> lineList;
         Path path = Paths.get(filePath);
         try {
-            content = Files.readAllLines(path, StandardCharsets.UTF_8);
+            lineList = Files.readAllLines(path, StandardCharsets.UTF_8);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Invalid file path: " + path.toUri());
         }
-        return content;
-    }
-
-    public List<String> getFileContentInList(){
-        return content;
+        return lineList;
     }
 }
