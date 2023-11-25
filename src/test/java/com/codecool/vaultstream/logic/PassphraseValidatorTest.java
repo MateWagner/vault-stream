@@ -1,5 +1,6 @@
 package com.codecool.vaultstream.logic;
 
+import com.codecool.vaultstream.data.ValidationRules;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,7 +16,7 @@ class PassphraseValidatorTest {
 
     @BeforeEach
     void setUp() {
-        this.validator = new PassphraseValidator();
+        this.validator = new PassphraseValidator(ValidationRules.getStringRegexRule());
     }
 
     @ParameterizedTest

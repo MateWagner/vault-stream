@@ -7,7 +7,6 @@ import com.codecool.vaultstream.ui.MessageToConsole;
 import com.codecool.vaultstream.utils.FileReader;
 import com.codecool.vaultstream.utils.IFileReader;
 
-import java.util.List;
 import java.util.Set;
 
 public class Main {
@@ -18,17 +17,12 @@ public class Main {
             Set<String> validationRegexRules = ValidationRules.getStringRegexRule();
             IFileReader fileReader = new FileReader();
             IPassphraseValidator validator = new PassphraseValidator(validationRegexRules);
-            run(filePath, validator, fileReader);
+            VaultStream app = new VaultStream(filePath, validator, fileReader);
+            app.run();
         } catch (Exception e) {
             MessageToConsole.errorMessage(e.getMessage());
         }
 
-    }
-
-    private static void run(String filePath, IPassphraseValidator validator, IFileReader fileReader) {
-        List<String> passphrases = fileReader.readFileLinesInList(filePath);
-        int validPassphrasesCount = validator.countValidPassphrases(passphrases);
-        MessageToConsole.successMessage("Valid passphrase count: " + validPassphrasesCount);
     }
 
     private static void argumentValidation(String[] args) {
